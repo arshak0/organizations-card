@@ -9,9 +9,9 @@
 
 # Screenshots from the program
 
-![image1](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/Screenshot_1.png)
-![image2](https://github.com/arshak0/organizations-card/blob/main/public/screenshots%20from%20app/Screenshot_2.png)
-![image3](https://github.com/arshak0/organizations-card/blob/main/public/screenshots%20from%20app/Screenshot_3.png)
+![image1](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_1.png)
+![image2](https://github.com/arshak0/organizations-card/blob/main/public/screenshots%20from%20app/screenshot_2.png)
+![image3](https://github.com/arshak0/organizations-card/blob/main/public/screenshots%20from%20app/screenshot_3.png)
 
 
 # Getting Started with Create React App
