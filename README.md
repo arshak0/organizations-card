@@ -35,3 +35,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ![image1](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_1.png)
 ![image2](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_2.png)
 ![image3](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_3.png)
+![image4](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_4.png)
+![image5](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_5.png)
+![image6](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_6.png)
