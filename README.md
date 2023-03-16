@@ -6,7 +6,16 @@
 
 ## Commands to launch the program
 
-To launch the program, use
+Firstly, install and use the node version 16.16.0
+The example of how to do that on the macOS
+### `nvm install 16.16.0`
+### `nvm use 16.16.0`
+If you don't have nvm, please, install it via homebrew, for instance, on the macOS
+
+Then install all packages
+### `npm install`
+
+And then, launch the program, use
 
 ### `npm start`
 
