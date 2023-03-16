@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import OrganizationCard from "../OrganizationCard";
 import OrganizationChangeModal from "../OrganizationChangeModal";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
 
@@ -59,8 +60,8 @@ export default function OrganizationsPage() {
             </header>
 
             <section className="Organizations-cards">
-                <Box className="Controls__row">
-                    <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'start', gap: 3}}>
+                <Box sx={{alignItems: { xs: 'center', md: 'unset'}}} className="Controls__row">
+                    <Box sx={{display: 'flex', flexDirection: { xs: "column", md: "row"}, justifyContent: 'start', gap: 3}}>
                         <Typography variant="body1" sx={{ flexGrow: 1, fontWeight: 'bold', alignSelf: 'center' }}>
                             {TEXTS.ALL_ORGANIZATIONS} ({filteredOrganizations.length})
                         </Typography>
@@ -74,7 +75,7 @@ export default function OrganizationsPage() {
                             </Box>
                         </Box>
                     </Box>
-                    <Button variant="contained" onClick={handleOpenModal}>{TEXTS.ADD_NEW}</Button>
+                    <Button sx={{marginTop: { xs: 3, md: 'unset'}, width: { xs: 250, md: 'unset'}}} variant="contained" onClick={handleOpenModal}>{TEXTS.ADD_NEW}</Button>
                     {openModal && <OrganizationChangeModal handleSubmit={handleSubmitNewOrg} handleClose={handleCloseModal}/>}
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} className="Organizations__cards__layout">

@@ -1,6 +1,6 @@
 export const BASE_IMG_SIZE = 20;
 export const PREVIEW_IMG_SIZE = 50;
-export const BASE_FIELD_WIDTH = 90;
+export const BASE_FIELD_WIDTH = 70;
 export const LARGE_FIELD_WIDTH = 150;
 export const BASE_BORDER_RADIUS = 5;
 export const FIELDS_MINIMUM_NUMBER = 5;

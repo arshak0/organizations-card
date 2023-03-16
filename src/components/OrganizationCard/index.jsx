@@ -40,7 +40,7 @@ export default function OrganizationCard (props) {
     const handleClickMenu = (event) => setAnchorEl(event.currentTarget)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column'}} className="Organization__card">
+        <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: { xs: '100%', sm: 'unset'}}} className="Organization__card">
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Box sx={{ display: 'flex', flexDirection: 'row'}}>
                     <img style={{width: CONSTANTS.BASE_IMG_SIZE, height: CONSTANTS.BASE_IMG_SIZE}} src={props.card.logo} alt={'org-logo'}/>
@@ -89,11 +89,11 @@ export default function OrganizationCard (props) {
                             {TEXTS.IN_USE}
                         </Typography>
                         {trackingAssigned >= props.card.tr_in_use &&
-                            <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginLeft: 1, color: 'success.main' }} >
+                            <Typography variant="caption" sx={{ textAlign: 'start', marginLeft: 1, color: 'success.main' }} >
                                 {props.card.tr_in_use}
                             </Typography>}
                         {trackingAssigned < props.card.tr_in_use &&
-                            <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginLeft: 1, color: 'error.main' }} >
+                            <Typography variant="caption" sx={{ textAlign: 'start', marginLeft: 1, color: 'error.main' }} >
                                 {props.card.tr_in_use}
                             </Typography>}
                     </Box>
@@ -104,7 +104,7 @@ export default function OrganizationCard (props) {
                         <NumberDropDown handleChange={handleTrackingAssigned} value={props.card.tr_assign} in_use={props.card.tr_in_use}/>
                     </Box>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '50%'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '50%', marginLeft: { xs: 3, sm: 5}}}>
                     <Typography variant="caption" sx={{ fontWeight: 'bold', textAlign: 'start' }}>
                         {TEXTS.PROTECTION}
                     </Typography>
@@ -113,11 +113,11 @@ export default function OrganizationCard (props) {
                             {TEXTS.IN_USE}
                         </Typography>
                         {protectionAssigned >= props.card.pr_in_use &&
-                            <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginLeft: 1, color: 'success.main' }} >
+                            <Typography variant="caption" sx={{ textAlign: 'start', marginLeft: 1, color: 'success.main' }} >
                                 {props.card.pr_in_use}
                             </Typography>}
                         {protectionAssigned < props.card.pr_in_use &&
-                            <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginLeft: 1, color: 'error.main' }} >
+                            <Typography variant="caption" sx={{ textAlign: 'start', marginLeft: 1, color: 'error.main' }} >
                                 {props.card.pr_in_use}
                             </Typography>}
                     </Box>
