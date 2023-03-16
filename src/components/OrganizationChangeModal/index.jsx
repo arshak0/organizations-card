@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Modal} from '@mui/material';
 import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
 import {changeOrganizationValidation} from "../../constants/functions";
-import CustomFieldBox from "./FieldBox";
+import CustomFieldBox from "./CustomFieldBox";
+import {LARGE_FIELD_WIDTH} from "../../constants/constants";
 
 export default function OrganizationChangeModal (props) {
     const [openModal, setOpenModal] = useState(true);
@@ -77,7 +79,15 @@ export default function OrganizationChangeModal (props) {
             open={openModal}
             onClose={handleCloseModal}
             closeAfterTransition>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: CONSTANTS.CHANGEORG_MODAL_PARAMS.WIDTH, height: CONSTANTS.CHANGEORG_MODAL_PARAMS.HEIGHT, marginLeft: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINLEFT, marginTop: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINTOP, backgroundColor: 'white.main', borderRadius: CONSTANTS.BASE_BORDER_RADIUS, padding: 3}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
+                width: { xs: CONSTANTS.CHANGEORG_MODAL_PARAMS.WIDTH_MOB, md: CONSTANTS.CHANGEORG_MODAL_PARAMS.WIDTH},
+                height: CONSTANTS.CHANGEORG_MODAL_PARAMS.HEIGHT,
+                marginLeft: { xs: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINLEFT_MOB, md: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINLEFT},
+                marginTop: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINTOP,
+                backgroundColor: 'white.main',
+                borderRadius: CONSTANTS.BASE_BORDER_RADIUS, padding: 3
+            }}>
+                <CloseIcon onClick={handleCloseModal} sx={{position: 'absolute', marginLeft: { xs: '85%', md: '65%'}}}/>
                 <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="body1">{TEXTS.ADD_NEW}</Typography>
                 {validationError && <Typography sx={{textAlign: 'center', fontWeight: 'bold', color: 'error.main'}} variant="caption">
                     {TEXTS.FIELDS_VALIDATION_ERROR}
@@ -90,16 +100,16 @@ export default function OrganizationChangeModal (props) {
                     <CustomFieldBox type="number" text="Protection: in use" state={newPrInUse} setState={setNewPrInUse}/>
                     <CustomFieldBox type="number" text="Protection: assigned" state={newPrAssigned} setState={setNewPrAssigned}/>
 
-                    <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: 3}}>
-                        <Typography sx={{alignSelf: 'center', minWidth: CONSTANTS.LARGE_FIELD_WIDTH}} variant="caption">{TEXTS.LOGO_UPLOAD}</Typography>
+                    <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row'}, width: '100%', marginTop: 3}}>
+                        <Typography sx={{alignSelf: 'center', marginBottom: { xs: 3, md: 0}, minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}}} variant="caption">{TEXTS.LOGO_UPLOAD}</Typography>
                         <input className="fileInput"
                                type="file"
                                onChange={(e)=>handleImageChangeFile(e)} />
                     </Box>
-                    {uploadedFile.imagePreviewUrl && <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: 3}}>
-                        <Typography sx={{alignSelf: 'center', minWidth: CONSTANTS.LARGE_FIELD_WIDTH}} variant="caption">{TEXTS.LOGO_PREVIEW}</Typography>
+                    {uploadedFile.imagePreviewUrl && <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row'}, width: '100%', marginTop: 3}}>
+                        <Typography sx={{alignSelf: 'center', minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}, marginBottom: { xs: 3, md: 0}}} variant="caption">{TEXTS.LOGO_PREVIEW}</Typography>
                         <img style={{width: CONSTANTS.PREVIEW_IMG_SIZE, height: CONSTANTS.PREVIEW_IMG_SIZE}} alt={'preview-img-logo'}
-                             src={uploadedFile.imagePreviewUrl} />
+                             className='Img-Logo__preview' src={uploadedFile.imagePreviewUrl} />
                     </Box>}
                     {validationError &&
                         <Button sx={{marginTop: 4, color: 'error.main'}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>{TEXTS.SUBMIT}</Button>

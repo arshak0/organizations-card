@@ -11,11 +11,11 @@ export default function CustomFieldBox (props) {
     }
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: 3}}>
-            <Typography sx={{alignSelf: 'center', minWidth: LARGE_FIELD_WIDTH}} variant="caption">
+        <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row'}, width: '100%', marginTop: 3}}>
+            <Typography sx={{alignSelf: 'center', minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}}} variant="caption">
                 {props.text}
             </Typography>
-            <TextField type={props.type} size='small' id="outlined-basic" label={props.text} variant="outlined" value={props.state} onChange={handleChange} />
+            <TextField sx={{marginTop: { xs: 3, md: 0}}} type={props.type} size='small' id="outlined-basic" label={props.text} variant="outlined" value={props.state} onChange={handleChange} />
         </Box>
     );
 }

@@ -26,6 +26,11 @@ $breakpoint-small-screen: 1024px;
   flex-direction: column;
 }
 
+@mixin margin-left-right-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .App {
   text-align: center;
   padding: $large-spacing;
@@ -61,6 +66,12 @@ $breakpoint-small-screen: 1024px;
 
   @media (max-width: $breakpoint-tablet) {
     @include flex-column;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .Img-Logo__preview {
+    @include margin-left-right-auto;
   }
 }
 
