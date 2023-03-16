@@ -1,0 +1,86 @@
+@import './colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+$small-spacing: 12px;
+$middle-spacing: 20px;
+$large-spacing: 30px;
+$border-width: 1px;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.App {
+  text-align: center;
+  padding: $large-spacing;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Controls-row {
+  @include flex-row;
+  justify-content: space-between;
+  margin-top: $large-spacing;
+}
+
+.Flex-row-justify-content-start {
+  @include flex-row;
+  justify-content: flex-start;
+  gap: $middle-spacing;
+}
+
+.Organizations-cards-layout {
+  @include flex-row;
+  margin-top: $middle-spacing;
+  gap: $middle-spacing;
+  flex-wrap: wrap;
+}
+
+.Organization-card {
+  border: $border-width solid $secondary-color;
+  border-radius: 3px;
+  padding: $small-spacing;
+}
+
+select.Number-select {
+  border: none;
+  border-bottom: $border-width solid $secondary-color;
+  outline: none;
+}
+
+select.Number-select:hover {
+  border: none;
+  border-bottom: $border-width solid $primary-color;
+}
+
+select.Number-select::-ms-expand {
+  display: none;
+}
