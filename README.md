@@ -1,19 +1,5 @@
 # This is an organizations cards app, developed using react
 
-# Functionality:
-- Search filter
-- Add New Organization
-- Edit and Delete the organization
-- Upload a logo for the organization (on the creating or editing stage)
-
-
-# Screenshots from the program
-
-![image1](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_1.png)
-![image2](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_2.png)
-![image3](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_3.png)
-
-
 # Getting Started with Create React App
 
 ****USE NODE VERSION 16.16.0****
@@ -26,3 +12,16 @@ To launch the program, use
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+# Functionality:
+- Search filter
+- Add New Organization
+- Edit and Delete the organization
+- Upload a logo for the organization (on the creating or editing stage)
+
+
+# Screenshots from the program
+
+![image1](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_1.png)
+![image2](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_2.png)
+![image3](https://github.com/arshak0/organizations-card/blob/master/public/screenshots%20from%20app/screenshot_3.png)
