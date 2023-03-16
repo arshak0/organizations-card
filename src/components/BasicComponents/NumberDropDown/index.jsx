@@ -25,7 +25,7 @@ export default function NumberDropDown (props) {
 
     return (
         <form variant="standard" sx={{ m: 1, width: 60 }}>
-            <select ref={selectEl} className="Number-select" type="number"
+            <select ref={selectEl} className="Number__select" type="number"
                 value={value}
                 onChange={handleChange}
                 style={{fontFamily: '"Roboto","Helvetica","Arial",sans-serif',

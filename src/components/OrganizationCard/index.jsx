@@ -40,7 +40,7 @@ export default function OrganizationCard (props) {
     const handleClickMenu = (event) => setAnchorEl(event.currentTarget)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column'}} className="Organization-card">
+        <Box sx={{ display: 'flex', flexDirection: 'column'}} className="Organization__card">
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Box sx={{ display: 'flex', flexDirection: 'row'}}>
                     <img style={{width: CONSTANTS.BASE_IMG_SIZE, height: CONSTANTS.BASE_IMG_SIZE}} src={props.card.logo} alt={'org-logo'}/>

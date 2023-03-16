@@ -51,7 +51,7 @@ export default function OrganizationsPage() {
     }
 
     return (
-        <div className="App">
+        <Box className="App">
             <header className="App-header">
                 <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
                     {TEXTS.HEADER_TEXT}
@@ -59,8 +59,8 @@ export default function OrganizationsPage() {
             </header>
 
             <section className="Organizations-cards">
-                <div className="Controls-row">
-                    <div className="Flex-row-justify-content-start">
+                <Box className="Controls__row">
+                    <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'start', gap: 3}}>
                         <Typography variant="body1" sx={{ flexGrow: 1, fontWeight: 'bold', alignSelf: 'center' }}>
                             {TEXTS.ALL_ORGANIZATIONS} ({filteredOrganizations.length})
                         </Typography>
@@ -73,17 +73,17 @@ export default function OrganizationsPage() {
                                 <SearchIcon  sx={{ color: 'secondary.main', marginTop: 1}}/>
                             </Box>
                         </Box>
-                    </div>
+                    </Box>
                     <Button variant="contained" onClick={handleOpenModal}>{TEXTS.ADD_NEW}</Button>
                     {openModal && <OrganizationChangeModal handleSubmit={handleSubmitNewOrg} handleClose={handleCloseModal}/>}
-                </div>
-                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} className="Organizations-cards-layout">
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} className="Organizations__cards__layout">
                     {filteredOrganizations.map((org) => (
                         <OrganizationCard card={org} key={org.name} handleDelete={handleDeleteOrg} handleEdit={handleEditOrg}/>
                     ))}
                 </Box>
                 <Button variant="contained" sx={{marginTop: 3}}>{TEXTS.LOAD_MORE}</Button>
             </section>
-        </div>
+        </Box>
     );
 }

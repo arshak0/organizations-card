@@ -6,6 +6,10 @@ $middle-spacing: 20px;
 $large-spacing: 30px;
 $border-width: 1px;
 
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-small-screen: 1024px;
+
 *,
 *::before,
 *::after {
@@ -15,6 +19,11 @@ $border-width: 1px;
 @mixin flex-row {
   display: flex;
   flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .App {
@@ -45,42 +54,40 @@ $border-width: 1px;
   color: #61dafb;
 }
 
-.Controls-row {
+.Controls__row {
   @include flex-row;
   justify-content: space-between;
   margin-top: $large-spacing;
+
+  @media (max-width: $breakpoint-tablet) {
+    @include flex-column;
+  }
 }
 
-.Flex-row-justify-content-start {
-  @include flex-row;
-  justify-content: flex-start;
-  gap: $middle-spacing;
-}
-
-.Organizations-cards-layout {
+.Organizations__cards__layout {
   @include flex-row;
   margin-top: $middle-spacing;
   gap: $middle-spacing;
   flex-wrap: wrap;
 }
 
-.Organization-card {
+.Organization__card {
   border: $border-width solid $secondary-color;
   border-radius: 3px;
   padding: $small-spacing;
 }
 
-select.Number-select {
+select.Number__select {
   border: none;
   border-bottom: $border-width solid $secondary-color;
   outline: none;
 }
 
-select.Number-select:hover {
+select.Number__select:hover {
   border: none;
   border-bottom: $border-width solid $primary-color;
 }
 
-select.Number-select::-ms-expand {
+select.Number__select::-ms-expand {
   display: none;
 }
