@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, TextField} from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { LARGE_FIELD_WIDTH} from "../../constants";
+import { LARGE_FIELD_WIDTH} from "../../constants/constants";
 
 export default function CustomFieldBox (props) {
 

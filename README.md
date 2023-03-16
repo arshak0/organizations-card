@@ -27,6 +27,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 - Add New Organization
 - Edit and Delete the organization
 - Upload a logo for the organization (on the creating or editing stage)
+- The app's design is adaptive both for the desktop and mobile devices
 
 
 # Screenshots from the program

@@ -1,0 +1,17 @@
+export const HEADER_TEXT = 'This is a page of organizations cards developed by ARSHAK ISHKHANYAN';
+export const ALL_ORGANIZATIONS = 'All Organizations';
+export const SEARCH_ORGANIZATION_PLACEHOLDER = 'Search organization';
+export const ADD_NEW = 'Add new Organization';
+export const FIELDS_VALIDATION_ERROR= 'Please fill all the fields correctly. Note: Fill the assigned fields with a number divisible by 5';
+export const LOGO_UPLOAD = 'Upload a Logo';
+export const LOGO_PREVIEW = 'Logo Preview';
+export const SUBMIT = 'Submit';
+export const LICENSES = 'Licenses';
+export const TRACKING = 'Tracking';
+export const PROTECTION = 'Protection';
+export const IN_USE = 'In use';
+export const ASSIGNED = 'Assigned';
+export const EDIT = 'Edit';
+export const GO_TO_ORGANIZATION = 'Go to Organization';
+export const DELETE_ORGANIZATION = 'Delete Organization';
+export const LOAD_MORE = 'Load More';

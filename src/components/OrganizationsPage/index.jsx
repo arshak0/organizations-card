@@ -5,10 +5,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import OrganizationCard from "../OrganizationCard";
 import OrganizationChangeModal from "../OrganizationChangeModal";
-import { INITIAL_ORGANIZATIONS_ARRAY, BASE_BORDER_RADIUS } from "../../constants";
+import * as CONSTANTS from "../../constants/constants";
+import * as TEXTS from "../../constants/texts";
 
 export default function OrganizationsPage() {
-    const [allOrganizations, setAllOrganizations] = useState(INITIAL_ORGANIZATIONS_ARRAY);
+    const [allOrganizations, setAllOrganizations] = useState(CONSTANTS.INITIAL_ORGANIZATIONS_ARRAY);
     const [filteredOrganizations, setFilteredOrganizations] = useState([]);
 
     const [openModal, setOpenModal] = useState(false);
@@ -53,7 +54,7 @@ export default function OrganizationsPage() {
         <div className="App">
             <header className="App-header">
                 <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                    This is a page of organizations cards developed by ARSHAK ISHKHANYAN
+                    {TEXTS.HEADER_TEXT}
                 </Typography>
             </header>
 
@@ -61,26 +62,27 @@ export default function OrganizationsPage() {
                 <div className="Controls-row">
                     <div className="Flex-row-justify-content-start">
                         <Typography variant="body1" sx={{ flexGrow: 1, fontWeight: 'bold', alignSelf: 'center' }}>
-                            All organizations ({filteredOrganizations.length})
+                            {TEXTS.ALL_ORGANIZATIONS} ({filteredOrganizations.length})
                         </Typography>
-                        <Box sx={{display: 'flex', border: 1, borderColor: "secondary.main", borderRadius: BASE_BORDER_RADIUS, paddingLeft: 3, paddingRight: 3}}>
+                        <Box sx={{display: 'flex', border: 1, borderColor: "secondary.main", borderRadius: CONSTANTS.BASE_BORDER_RADIUS, paddingLeft: 3, paddingRight: 3}}>
                             <InputBase  onChange={handleFilterOrganizations}
-                                placeholder="Search organization"
+                                placeholder={TEXTS.SEARCH_ORGANIZATION_PLACEHOLDER}
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                             <Box sx={{display: 'inline', alignSelf: 'center'}}>
-                                <SearchIcon  sx={{ color: 'gray', marginTop: 1}}/>
+                                <SearchIcon  sx={{ color: 'secondary.main', marginTop: 1}}/>
                             </Box>
                         </Box>
                     </div>
-                    <Button variant="contained" onClick={handleOpenModal}>Add New Organization</Button>
+                    <Button variant="contained" onClick={handleOpenModal}>{TEXTS.ADD_NEW}</Button>
                     {openModal && <OrganizationChangeModal handleSubmit={handleSubmitNewOrg} handleClose={handleCloseModal}/>}
                 </div>
-                <Box sx={{ display: 'flex', flexDirection: 'row'}} className="Organizations-cards-layout">
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} className="Organizations-cards-layout">
                     {filteredOrganizations.map((org) => (
                         <OrganizationCard card={org} key={org.name} handleDelete={handleDeleteOrg} handleEdit={handleEditOrg}/>
                     ))}
                 </Box>
+                <Button variant="contained" sx={{marginTop: 3}}>{TEXTS.LOAD_MORE}</Button>
             </section>
         </div>
     );

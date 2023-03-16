@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Modal} from '@mui/material';
 import Typography from '@mui/material/Typography';
-import {PREVIEW_IMG_SIZE, LARGE_FIELD_WIDTH, BASE_BORDER_RADIUS, FIELDS_MINIMUM_NUMBER} from "../../constants";
+import * as CONSTANTS from "../../constants/constants";
+import * as TEXTS from "../../constants/texts";
 import {changeOrganizationValidation} from "../../constants/functions";
 import CustomFieldBox from "./FieldBox";
 
 export default function OrganizationChangeModal (props) {
-
     const [openModal, setOpenModal] = useState(true);
     const [newOrgName, setNewOrgName] = useState('');
-    const [newTrInUse, setNewTrInUse] = useState(FIELDS_MINIMUM_NUMBER);
-    const [newTrAssigned, setNewTrAssigned] = useState(FIELDS_MINIMUM_NUMBER);
-    const [newPrInUse, setNewPrInUse] = useState(FIELDS_MINIMUM_NUMBER);
-    const [newPrAssigned, setNewPrAssigned] = useState(FIELDS_MINIMUM_NUMBER);
+    const [newTrInUse, setNewTrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newTrAssigned, setNewTrAssigned] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newPrInUse, setNewPrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newPrAssigned, setNewPrAssigned] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
     const [validationError, setValidationError] = useState(false);
     const [uploadedFile, setUploadedFile] = useState({file: '',imagePreviewUrl: ''});
     const handleCloseModal = () => {
         setOpenModal(false);
         setNewOrgName('');
-        setNewTrInUse(FIELDS_MINIMUM_NUMBER);
-        setNewTrAssigned(FIELDS_MINIMUM_NUMBER);
-        setNewPrInUse(FIELDS_MINIMUM_NUMBER);
-        setNewPrAssigned(FIELDS_MINIMUM_NUMBER);
+        setNewTrInUse(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+        setNewTrAssigned(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+        setNewPrInUse(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+        setNewPrAssigned(CONSTANTS.FIELDS_MINIMUM_NUMBER);
         setValidationError(false);
         setUploadedFile({file: '',imagePreviewUrl: ''});
         props.handleClose(false);
@@ -40,7 +40,6 @@ export default function OrganizationChangeModal (props) {
 
     const handleNewOrganizationSubmit = () => {
         if (changeOrganizationValidation (newOrgName, newTrInUse, newTrAssigned, newPrInUse, newPrAssigned)) {
-
             setOpenModal(false);
             props.handleSubmit(
                 {
@@ -78,12 +77,10 @@ export default function OrganizationChangeModal (props) {
             open={openModal}
             onClose={handleCloseModal}
             closeAfterTransition>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '70vw', height: '96vh', marginLeft: '15vw', marginTop: '2vh', backgroundColor: 'white.main', borderRadius: BASE_BORDER_RADIUS, padding: 3}}>
-                <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="body1">
-                    Add new Organization
-                </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: CONSTANTS.CHANGEORG_MODAL_PARAMS.WIDTH, height: CONSTANTS.CHANGEORG_MODAL_PARAMS.HEIGHT, marginLeft: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINLEFT, marginTop: CONSTANTS.CHANGEORG_MODAL_PARAMS.MARGINTOP, backgroundColor: 'white.main', borderRadius: CONSTANTS.BASE_BORDER_RADIUS, padding: 3}}>
+                <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="body1">{TEXTS.ADD_NEW}</Typography>
                 {validationError && <Typography sx={{textAlign: 'center', fontWeight: 'bold', color: 'error.main'}} variant="caption">
-                    Please fill all the fields correctly. Note: Fill the assigned fields with a number divisible by 5
+                    {TEXTS.FIELDS_VALIDATION_ERROR}
                 </Typography>}
                 <Box sx={{marginTop: 3, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
 
@@ -94,25 +91,21 @@ export default function OrganizationChangeModal (props) {
                     <CustomFieldBox type="number" text="Protection: assigned" state={newPrAssigned} setState={setNewPrAssigned}/>
 
                     <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: 3}}>
-                        <Typography sx={{alignSelf: 'center', minWidth: LARGE_FIELD_WIDTH}} variant="caption">
-                            Upload a Logo
-                        </Typography>
+                        <Typography sx={{alignSelf: 'center', minWidth: CONSTANTS.LARGE_FIELD_WIDTH}} variant="caption">{TEXTS.LOGO_UPLOAD}</Typography>
                         <input className="fileInput"
                                type="file"
                                onChange={(e)=>handleImageChangeFile(e)} />
                     </Box>
                     {uploadedFile.imagePreviewUrl && <Box sx={{display: 'flex', flexDirection: 'row', width: '100%', marginTop: 3}}>
-                        <Typography sx={{alignSelf: 'center', minWidth: LARGE_FIELD_WIDTH}} variant="caption">
-                            Logo Preview
-                        </Typography>
-                        <img style={{width: PREVIEW_IMG_SIZE, height: PREVIEW_IMG_SIZE}} alt={'preview-img-logo'}
+                        <Typography sx={{alignSelf: 'center', minWidth: CONSTANTS.LARGE_FIELD_WIDTH}} variant="caption">{TEXTS.LOGO_PREVIEW}</Typography>
+                        <img style={{width: CONSTANTS.PREVIEW_IMG_SIZE, height: CONSTANTS.PREVIEW_IMG_SIZE}} alt={'preview-img-logo'}
                              src={uploadedFile.imagePreviewUrl} />
                     </Box>}
-                    { validationError &&
-                        <Button sx={{marginTop: 4, color: 'error.main'}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>Submit</Button>
+                    {validationError &&
+                        <Button sx={{marginTop: 4, color: 'error.main'}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>{TEXTS.SUBMIT}</Button>
                     }
-                    { !validationError &&
-                        <Button sx={{marginTop: 4}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>Submit</Button>
+                    {!validationError &&
+                        <Button sx={{marginTop: 4}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>{TEXTS.SUBMIT}</Button>
                     }
                 </Box>
 

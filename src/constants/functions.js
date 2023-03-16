@@ -1,4 +1,4 @@
-import {FIELDS_MINIMUM_NUMBER} from "./index";
+import {FIELDS_MINIMUM_NUMBER} from "./constants";
 
 export function changeOrganizationValidation (newOrgName, newTrInUse, newTrAssigned, newPrInUse, newPrAssigned) {
     if (newOrgName!=='' && newTrInUse!==0 && newTrAssigned!==0
