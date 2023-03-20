@@ -4,6 +4,7 @@ export const BASE_FIELD_WIDTH = 70;
 export const LARGE_FIELD_WIDTH = 150;
 export const BASE_BORDER_RADIUS = 5;
 export const FIELDS_MINIMUM_NUMBER = 5;
+export const ASSIGNED_VALUE_STEP = 5;
 export const CHANGEORG_MODAL_PARAMS = {
     WIDTH: '70vw',
     WIDTH_MOB: '96vw',

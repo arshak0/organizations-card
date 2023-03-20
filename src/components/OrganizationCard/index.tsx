@@ -33,9 +33,6 @@ export default function OrganizationCard (props:
 
     const [trackingAssigned, setTrackingAssigned] = useState<number>(props.card.tr_assign);
     const [protectionAssigned, setProtectionAssigned] = useState<number>(props.card.pr_assign);
-    const handleTrackingAssigned = (value: string) => setTrackingAssigned(parseInt(value));
-    const handleProtectionAssigned = (value: string) => setProtectionAssigned(parseInt(value));
-
 
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
     const handleToggleEditModal = () => {
@@ -108,7 +105,7 @@ export default function OrganizationCard (props:
                         <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginTop: 'auto' }}>
                             {TEXTS.ASSIGNED}
                         </Typography>
-                        <NumberDropDown handleChange={handleTrackingAssigned} value={props.card.tr_assign} in_use={props.card.tr_in_use}/>
+                        <NumberDropDown value={props.card.tr_assign} in_use={props.card.tr_in_use}/>
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '50%', marginLeft: { xs: 3, sm: 5}}}>
@@ -132,7 +129,7 @@ export default function OrganizationCard (props:
                         <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginTop: 'auto' }}>
                             {TEXTS.ASSIGNED}
                         </Typography>
-                        <NumberDropDown handleChange={handleProtectionAssigned} value={props.card.pr_assign} in_use={props.card.pr_in_use}/>
+                        <NumberDropDown value={props.card.pr_assign} in_use={props.card.pr_in_use}/>
                     </Box>
                 </Box>
             </Box>
