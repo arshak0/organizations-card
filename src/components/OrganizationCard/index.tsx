@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -13,31 +13,38 @@ import NumberDropDown from "../BasicComponents/NumberDropDown";
 import OrganizationChangeModal from "../OrganizationChangeModal";
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {addOrganization, Organization, removeOrganization, selectOrganizations} from "../../store/slice";
 
-export default function OrganizationCard (props) {
-    const [anchorEl, setAnchorEl] = useState(null);
+export default function OrganizationCard (props:
+{ card: Organization, key: number } ) {
+    const organizations = useAppSelector(selectOrganizations);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        //console.log(props)
+    })
+
+    const deleteOrganization = (orgId: number) => dispatch(removeOrganization(orgId))
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const menuOpen = Boolean(anchorEl);
+    const handleCloseMenu = () => setAnchorEl(null)
 
-    const [trackingAssigned, setTrackingAssigned] = useState(props.card.tr_assign);
-    const [protectionAssigned, setProtectionAssigned] = useState(props.card.pr_assign);
+    const [trackingAssigned, setTrackingAssigned] = useState<number>(props.card.tr_assign);
+    const [protectionAssigned, setProtectionAssigned] = useState<number>(props.card.pr_assign);
+    const handleTrackingAssigned = (value: string) => setTrackingAssigned(parseInt(value));
+    const handleProtectionAssigned = (value: string) => setProtectionAssigned(parseInt(value));
 
-    const handleTrackingAssigned = (value) => setTrackingAssigned(parseInt(value));
-    const handleProtectionAssigned = (value) => setProtectionAssigned(parseInt(value));
 
-    const handleDeleteCard = () => props.handleDelete(props.card.id)
-
-    const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
-    const handleEditCard = (value) => {
-        let valueWithId = {...value}
-        valueWithId.id = props.card.id
-        props.handleEdit(valueWithId)
-        setOpenModal((false));
+    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+    const handleToggleEditModal = () => {
+        setOpenEditModal(!openEditModal);
     }
 
-    const handleCloseMenu = () => setAnchorEl(null)
-    const handleClickMenu = (event) => setAnchorEl(event.currentTarget)
+    const handleClickMenu = (event:React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget)
+    }
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: { xs: '100%', sm: 'unset'}, minWidth: { xs: 'unset', sm: 320}}} className="Organization__card">
@@ -52,14 +59,14 @@ export default function OrganizationCard (props) {
                     aria-haspopup="true" onClick={handleClickMenu}>
                     <MoreVertIcon />
                 </IconButton>
-                {openModal && <OrganizationChangeModal handleSubmit={handleEditCard} handleClose={handleCloseModal} cardData={props.card}/>}
+                {openEditModal && <OrganizationChangeModal handleClose={handleCloseMenu} cardData={props.card}/>}
                 <Menu
                     id="long-menu"
                     anchorEl={anchorEl}
                     open={menuOpen}
                     onClose={handleCloseMenu}
                 >
-                    <MenuItem selected onClick={handleOpenModal}>
+                    <MenuItem selected onClick={handleToggleEditModal}>
                         <BorderColorIcon sx={{ color: 'secondary.main', width: CONSTANTS.BASE_IMG_SIZE, height: CONSTANTS.BASE_IMG_SIZE}}/>
                         <Typography sx={{marginLeft: 3}} variant="caption">{TEXTS.EDIT}</Typography>
                     </MenuItem>
@@ -67,7 +74,7 @@ export default function OrganizationCard (props) {
                         <SwipeRightAltIcon sx={{ color: 'secondary.main', width: CONSTANTS.BASE_IMG_SIZE, height: CONSTANTS.BASE_IMG_SIZE}}/>
                         <Typography sx={{marginLeft: 3}} variant="caption">{TEXTS.GO_TO_ORGANIZATION}</Typography>
                     </MenuItem>
-                    <MenuItem onClick={handleDeleteCard}>
+                    <MenuItem onClick={() => deleteOrganization(props.card.id)}>
                         <DoNotDisturbAltIcon sx={{ color: 'secondary.main', width: CONSTANTS.BASE_IMG_SIZE, height: CONSTANTS.BASE_IMG_SIZE}}/>
                         <Typography sx={{marginLeft: 3}} variant="caption">{TEXTS.DELETE_ORGANIZATION}</Typography>
                     </MenuItem>

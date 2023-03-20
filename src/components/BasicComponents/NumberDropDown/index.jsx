@@ -5,18 +5,24 @@ export default function NumberDropDown (props) {
     const selectEl = useRef(null)
 
     useEffect(() => {
-        let maxOption = Math.max(props.value,props.in_use)
+        //console.log(props)
+    })
+
+
+    useEffect(() => {
+        let maxOption = Math.max(props.value, props.in_use)
         let select = selectEl.current
-        if ( select.options.length < maxOption/5 ) {
-            for (let ii = 5; ii <= maxOption; ii += 5) {
-                let option = document.createElement("OPTION");
-                option.text = ii;
-                option.value = ii;
-                select.options.add(option);
-            }
+        if ( !(select.options[0] && maxOption === select.options[select.options.length - 1].value ) ) {
+                for (let ii = 5; ii <= maxOption; ii += 5) {
+                    let option = document.createElement("OPTION");
+                    option.text = ii;
+                    option.value = ii;
+                    select.options.add(option);
+                }
+
         }
-        select.value=props.value;
-    },[props.value])
+        setValue((props.value))
+    },[props.value, props.in_use])
 
     const handleChange = (event) => {
         setValue((event.target.value))
