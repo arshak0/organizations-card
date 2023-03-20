@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
 import {changeOrganizationValidation} from "../../constants/functions";
-import CustomFieldBox from "./CustomFieldBox";
+import {CustomFieldBoxString, CustomFieldBoxNumber} from "./CustomFieldBox";
 import {LARGE_FIELD_WIDTH} from "../../constants/constants";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {addOrganization, Organization, editOrganization, selectOrganizations} from "../../store/slice";
@@ -20,25 +20,20 @@ export default function OrganizationChangeModal (props:
 
     const organizations = useAppSelector(selectOrganizations);
     const dispatch = useAppDispatch();
+    const editCurrentOrganization = (org: Organization) => dispatch(editOrganization(org))
+    const addNewOrganization = (org: Organization) => dispatch(addOrganization(org))
 
     useEffect(() => {
         //console.log(organizations[props.card.id])
     })
 
-    const editCurrentOrganization = (org: Organization) => {
-        dispatch(editOrganization(org))
-    }
-    const addNewOrganization = (org: Organization) => {
-        dispatch(addOrganization(org))
-    }
-
-    const [openModal, setOpenModal] = useState(true);
-    const [newOrgName, setNewOrgName] = useState('');
-    const [newTrInUse, setNewTrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
-    const [newTrAssigned, setNewTrAssigned] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
-    const [newPrInUse, setNewPrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
-    const [newPrAssigned, setNewPrAssigned] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
-    const [validationError, setValidationError] = useState(false);
+    const [openModal, setOpenModal] = useState<boolean>(true);
+    const [newOrgName, setNewOrgName] = useState<string>('');
+    const [newTrInUse, setNewTrInUse] = useState<number>(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newTrAssigned, setNewTrAssigned] = useState<number>(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newPrInUse, setNewPrInUse] = useState<number>(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [newPrAssigned, setNewPrAssigned] = useState<number>(CONSTANTS.FIELDS_MINIMUM_NUMBER);
+    const [validationError, setValidationError] = useState<boolean>(false);
     const [uploadedFile, setUploadedFile] = useState<uploadedfileInterface>({file: '',imagePreviewUrl: ''});
 
     const handleCloseModal = () => {
@@ -135,11 +130,11 @@ export default function OrganizationChangeModal (props:
                 </Typography>}
                 <Box sx={{marginTop: 3, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
 
-                    <CustomFieldBox type="text" text="Organization name" state={newOrgName} setState={setNewOrgName}/>
-                    <CustomFieldBox type="number" text="Tracking: in use" state={newTrInUse} setState={setNewTrInUse}/>
-                    <CustomFieldBox type="number" text="Tracking: assigned" state={newTrAssigned} setState={setNewTrAssigned}/>
-                    <CustomFieldBox type="number" text="Protection: in use" state={newPrInUse} setState={setNewPrInUse}/>
-                    <CustomFieldBox type="number" text="Protection: assigned" state={newPrAssigned} setState={setNewPrAssigned}/>
+                    <CustomFieldBoxString text="Organization name" state={newOrgName} setState={setNewOrgName}/>
+                    <CustomFieldBoxNumber text="Tracking: in use" state={newTrInUse} setState={setNewTrInUse}/>
+                    <CustomFieldBoxNumber text="Tracking: assigned" state={newTrAssigned} setState={setNewTrAssigned}/>
+                    <CustomFieldBoxNumber text="Protection: in use" state={newPrInUse} setState={setNewPrInUse}/>
+                    <CustomFieldBoxNumber text="Protection: assigned" state={newPrAssigned} setState={setNewPrAssigned}/>
 
                     <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row'}, width: '100%', marginTop: 3}}>
                         <Typography sx={{alignSelf: 'center', marginBottom: { xs: 3, md: 0}, minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}}} variant="caption">{TEXTS.LOGO_UPLOAD}</Typography>
