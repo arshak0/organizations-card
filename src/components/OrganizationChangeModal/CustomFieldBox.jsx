@@ -6,7 +6,7 @@ import { LARGE_FIELD_WIDTH} from "../../constants/constants";
 export default function CustomFieldBox (props) {
 
     const handleChange = (e) => {
-        if (props.type === 'number' && e.target.value>0) props.setState(e.target.value)
+        if (props.type === 'number' && e.target.value>0) props.setState(parseInt(e.target.value))
         else props.setState(e.target.value)
     }
 

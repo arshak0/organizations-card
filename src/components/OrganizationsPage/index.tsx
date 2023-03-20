@@ -5,50 +5,45 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import OrganizationCard from "../OrganizationCard";
 import OrganizationChangeModal from "../OrganizationChangeModal";
-import useMediaQuery from '@mui/material/useMediaQuery';
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
 
+import {useAppSelector, useAppDispatch} from "../../store/hooks";
+import {selectOrganizations, addOrganization, removeOrganization} from "../../store/slice";
+import type {Organization} from "../../store/slice";
+
 export default function OrganizationsPage() {
-    const [allOrganizations, setAllOrganizations] = useState(CONSTANTS.INITIAL_ORGANIZATIONS_ARRAY);
-    const [filteredOrganizations, setFilteredOrganizations] = useState([]);
+    const organizations = useAppSelector(selectOrganizations);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        //console.log(organizations)
+    })
+
+    const deleteOrganization = (orgId: number) => {
+        dispatch(removeOrganization(orgId))
+    }
+    const addNewOrganization = (org: Organization) => {
+        dispatch(addOrganization(org))
+    }
+
+    const [filteredOrganizations, setFilteredOrganizations] = useState<Array<Organization>>([]);
 
     const [openModal, setOpenModal] = useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
 
-    const handleDeleteOrg = (value) => {
-        let forAllOrganizations = [...allOrganizations];
-        for ( let ii=0; ii<forAllOrganizations.length; ii++ ) {
-            if (forAllOrganizations[ii].id === value) forAllOrganizations.splice(ii,1)
-        }
-        setAllOrganizations(forAllOrganizations);
-    }
+    useEffect(() => setFilteredOrganizations(organizations) ,[organizations])
 
-    const handleEditOrg = (value) => {
-        let forAllOrganizations = allOrganizations.map(card => card.id === value.id ? value : card)
-        setAllOrganizations(forAllOrganizations);
-    }
-
-    useEffect(() => setFilteredOrganizations(allOrganizations) ,[allOrganizations])
-
-    const handleSubmitNewOrg = (value) => {
-        let forAllOrganizations = [...allOrganizations];
-        value.id=allOrganizations[allOrganizations.length-1].id + 1;
-        forAllOrganizations.push(value);
-        setAllOrganizations(forAllOrganizations);
-        setOpenModal((false));
-    }
-
-    const handleFilterOrganizations = (event) => {
+    const handleFilterOrganizations = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value) {
             let forFiltering = [];
-            for (let ii=0; ii<allOrganizations.length; ii++) {
-                if (allOrganizations[ii].name.toLowerCase().includes(event.target.value)) forFiltering.push(allOrganizations[ii])
+            for (let ii=0; ii<organizations.length; ii++) {
+                if (organizations[ii].name.toLowerCase().includes(event.target.value)) forFiltering.push(organizations[ii])
             }
             setFilteredOrganizations(forFiltering)
         }
-        else setFilteredOrganizations(allOrganizations)
+        else setFilteredOrganizations(organizations)
     }
 
     return (
@@ -76,15 +71,15 @@ export default function OrganizationsPage() {
                         </Box>
                     </Box>
                     <Button sx={{marginTop: { xs: 3, md: 'unset'}, width: { xs: 250, md: 'unset'}}} variant="contained" onClick={handleOpenModal}>{TEXTS.ADD_NEW}</Button>
-                    {openModal && <OrganizationChangeModal handleSubmit={handleSubmitNewOrg} handleClose={handleCloseModal}/>}
+                    {openModal && <OrganizationChangeModal handleClose={handleCloseModal}/>}
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} className="Organizations__cards__layout">
-                    {filteredOrganizations.map((org) => (
-                        <OrganizationCard card={org} key={org.name} handleDelete={handleDeleteOrg} handleEdit={handleEditOrg}/>
+                    {organizations.map((org) => (
+                        <OrganizationCard card={org} key={org.id}/>
                     ))}
                 </Box>
                 <Button variant="contained" sx={{marginTop: 3}}>{TEXTS.LOAD_MORE}</Button>
             </section>
         </Box>
-    );
+    )
 }

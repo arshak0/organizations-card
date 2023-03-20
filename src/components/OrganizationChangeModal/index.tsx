@@ -7,8 +7,31 @@ import * as TEXTS from "../../constants/texts";
 import {changeOrganizationValidation} from "../../constants/functions";
 import CustomFieldBox from "./CustomFieldBox";
 import {LARGE_FIELD_WIDTH} from "../../constants/constants";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
+import {addOrganization, Organization, editOrganization, selectOrganizations} from "../../store/slice";
 
-export default function OrganizationChangeModal (props) {
+interface uploadedfileInterface {
+    file: File | string,
+    imagePreviewUrl: string
+}
+
+export default function OrganizationChangeModal (props:
+{ cardData?: Organization, handleClose: () => any }) {
+
+    const organizations = useAppSelector(selectOrganizations);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        //console.log(organizations[props.card.id])
+    })
+
+    const editCurrentOrganization = (org: Organization) => {
+        dispatch(editOrganization(org))
+    }
+    const addNewOrganization = (org: Organization) => {
+        dispatch(addOrganization(org))
+    }
+
     const [openModal, setOpenModal] = useState(true);
     const [newOrgName, setNewOrgName] = useState('');
     const [newTrInUse, setNewTrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
@@ -16,7 +39,8 @@ export default function OrganizationChangeModal (props) {
     const [newPrInUse, setNewPrInUse] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
     const [newPrAssigned, setNewPrAssigned] = useState(CONSTANTS.FIELDS_MINIMUM_NUMBER);
     const [validationError, setValidationError] = useState(false);
-    const [uploadedFile, setUploadedFile] = useState({file: '',imagePreviewUrl: ''});
+    const [uploadedFile, setUploadedFile] = useState<uploadedfileInterface>({file: '',imagePreviewUrl: ''});
+
     const handleCloseModal = () => {
         setOpenModal(false);
         setNewOrgName('');
@@ -26,7 +50,7 @@ export default function OrganizationChangeModal (props) {
         setNewPrAssigned(CONSTANTS.FIELDS_MINIMUM_NUMBER);
         setValidationError(false);
         setUploadedFile({file: '',imagePreviewUrl: ''});
-        props.handleClose(false);
+        props.handleClose();
     }
 
     useEffect(() => {
@@ -36,42 +60,59 @@ export default function OrganizationChangeModal (props) {
             setNewTrAssigned(props.cardData.tr_assign);
             setNewPrInUse(props.cardData.pr_in_use);
             setNewPrAssigned(props.cardData.pr_assign);
-            setUploadedFile({file: props.cardData.logo,imagePreviewUrl: props.cardData.logo})
+            setUploadedFile({file: props.cardData.logo, imagePreviewUrl: props.cardData.logo})
         }
     },[props.cardData])
 
     const handleNewOrganizationSubmit = () => {
         if (changeOrganizationValidation (newOrgName, newTrInUse, newTrAssigned, newPrInUse, newPrAssigned)) {
-            setOpenModal(false);
-            props.handleSubmit(
-                {
+            handleCloseModal()
+            if ( props.cardData) {
+                editCurrentOrganization({
+                    id: props.cardData.id,
                     name: newOrgName,
                     tr_in_use: newTrInUse,
-                    tr_assign: parseInt(newTrAssigned),
+                    tr_assign: newTrAssigned,
                     pr_in_use: newPrInUse,
-                    pr_assign: parseInt(newPrAssigned),
+                    pr_assign: newPrAssigned,
                     logo: uploadedFile.imagePreviewUrl
                 })
-            handleCloseModal()
+            }
+            else {
+                addNewOrganization({
+                    id: -1,
+                    name: newOrgName,
+                    tr_in_use: newTrInUse,
+                    tr_assign: newTrAssigned,
+                    pr_in_use: newPrInUse,
+                    pr_assign: newPrAssigned,
+                    logo: uploadedFile.imagePreviewUrl
+                })
+            }
+            props.handleClose()
         }
         else setValidationError(true)
     }
 
 
-    const handleImageChangeFile = (e) => {
-        e.preventDefault();
+    const handleImageChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        if (!event.target.files) return;
 
         let reader = new FileReader();
-        let file = e.target.files[0];
+        let file = event.target.files[0];
 
-        reader.onloadend = () => {
+        /*reader.onloadend = () => {
             setUploadedFile({
                 file: file,
                 imagePreviewUrl: reader.result
             });
         }
+        //
+        https://developer.chrome.com/blog/how-to-convert-arraybuffer-to-and-from-string/
+        //
 
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file)*/
     }
 
     return (
@@ -87,7 +128,7 @@ export default function OrganizationChangeModal (props) {
                 backgroundColor: 'white.main',
                 borderRadius: CONSTANTS.BASE_BORDER_RADIUS, padding: 3
             }}>
-                <CloseIcon onClick={handleCloseModal} sx={{position: 'absolute', marginLeft: { xs: '85%', md: '65%'}}}/>
+                <CloseIcon onClick={handleCloseModal} sx={{position: 'absolute', marginLeft: { xs: '85%', md: '65%'}, cursor: 'pointer'}}/>
                 <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="body1">{TEXTS.ADD_NEW}</Typography>
                 {validationError && <Typography sx={{textAlign: 'center', fontWeight: 'bold', color: 'error.main'}} variant="caption">
                     {TEXTS.FIELDS_VALIDATION_ERROR}
@@ -104,12 +145,12 @@ export default function OrganizationChangeModal (props) {
                         <Typography sx={{alignSelf: 'center', marginBottom: { xs: 3, md: 0}, minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}}} variant="caption">{TEXTS.LOGO_UPLOAD}</Typography>
                         <input className="fileInput"
                                type="file"
-                               onChange={(e)=>handleImageChangeFile(e)} />
+                               onChange={handleImageChangeFile} />
                     </Box>
                     {uploadedFile.imagePreviewUrl && <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row'}, width: '100%', marginTop: 3}}>
                         <Typography sx={{alignSelf: 'center', minWidth: { xs: 0, md: LARGE_FIELD_WIDTH}, marginBottom: { xs: 3, md: 0}}} variant="caption">{TEXTS.LOGO_PREVIEW}</Typography>
                         <img style={{width: CONSTANTS.PREVIEW_IMG_SIZE, height: CONSTANTS.PREVIEW_IMG_SIZE}} alt={'preview-img-logo'}
-                             className='Img-Logo__preview' src={uploadedFile.imagePreviewUrl} />
+                             className='Img-Logo__preview' /*src={uploadedFile.imagePreviewUrl}*/ />
                     </Box>}
                     {validationError &&
                         <Button sx={{marginTop: 4, color: 'error.main'}} type="submit" variant="outlined" onClick={handleNewOrganizationSubmit}>{TEXTS.SUBMIT}</Button>
