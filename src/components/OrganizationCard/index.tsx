@@ -39,6 +39,9 @@ export default function OrganizationCard (props:
         setOpenEditModal(!openEditModal);
     }
 
+    useEffect(() => setTrackingAssigned(props.card.tr_assign),[props.card.tr_assign]);
+    useEffect(() => setProtectionAssigned(props.card.pr_assign),[props.card.pr_assign]);
+
     const handleClickMenu = (event:React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null : event.currentTarget)
     }
