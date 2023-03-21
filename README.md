@@ -1,4 +1,4 @@
-# This is an organizations cards app, developed using react and redux
+# This is an organizations cards app, developed using typescript, react and redux
 
 # Getting Started with Create React App
 
