@@ -105,7 +105,7 @@ export default function OrganizationCard (props:
                         <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginTop: 'auto' }}>
                             {TEXTS.ASSIGNED}
                         </Typography>
-                        <NumberDropDown value={props.card.tr_assign} in_use={props.card.tr_in_use}/>
+                        <NumberDropDown for='tracking' orgId={props.card.id} value={props.card.tr_assign} in_use={props.card.tr_in_use}/>
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '50%', marginLeft: { xs: 3, sm: 5}}}>
@@ -129,7 +129,7 @@ export default function OrganizationCard (props:
                         <Typography variant="caption" sx={{ width: CONSTANTS.BASE_FIELD_WIDTH, textAlign: 'start', marginTop: 'auto' }}>
                             {TEXTS.ASSIGNED}
                         </Typography>
-                        <NumberDropDown value={props.card.pr_assign} in_use={props.card.pr_in_use}/>
+                        <NumberDropDown for='protection' orgId={props.card.id} value={props.card.pr_assign} in_use={props.card.pr_in_use}/>
                     </Box>
                 </Box>
             </Box>

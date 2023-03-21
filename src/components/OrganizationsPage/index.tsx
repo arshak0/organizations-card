@@ -17,7 +17,7 @@ export default function OrganizationsPage() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        //console.log(organizations)
+        console.log(organizations)
     })
 
     const deleteOrganization = (orgId: number) => {

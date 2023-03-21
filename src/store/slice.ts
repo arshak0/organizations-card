@@ -49,12 +49,31 @@ export const organizationSlice = createSlice({
             const organization = action.payload;
             const organizations = state.organizations.map((org)=>org.id === organization.id ? org = organization : org);
             state.organizations = organizations;
+        },
+        editAssignedField: (state, action: PayloadAction<[number, string, number]>) => {
+            const [orgId, forField, newValue] = action.payload;
+            const organizations = state.organizations.map((org)=> {
+                if ( org.id === orgId ) {
+                    if ( forField === 'tracking') {
+                        let newOrg={...org}
+                        newOrg.tr_assign = newValue;
+                        return newOrg
+                    }
+                    else {
+                        let newOrg={...org}
+                        newOrg.pr_assign = newValue;
+                        return newOrg
+                    }
+                }
+                else return org
+            });
+            state.organizations = organizations;
         }
     }
 })
 
 // actions
-export const {addOrganization, removeOrganization, editOrganization} = organizationSlice.actions
+export const {addOrganization, removeOrganization, editOrganization, editAssignedField} = organizationSlice.actions
 
 // selectors
 export const selectOrganizations = (state: RootState) => state.organizations.organizations

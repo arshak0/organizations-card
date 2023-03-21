@@ -1,9 +1,15 @@
 import React, {useEffect, useState, useRef} from "react";
 import {ASSIGNED_VALUE_STEP} from "../../../constants/constants";
-import OrganizationCard from "../../OrganizationCard";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {editAssignedField, Organization, selectOrganizations} from "../../../store/slice";
 
 export default function NumberDropDown (props:
-{ value: number, in_use: number }) {
+{ orgId: number, for: string, value: number, in_use: number }) {
+    const organizations = useAppSelector(selectOrganizations);
+    const dispatch = useAppDispatch();
+
+    const editAssigned = (orgId: number, forField: string, fieldValue: number) => dispatch(editAssignedField([orgId, forField, fieldValue]))
+
     const [value, setValue] = useState<number>(props.value)
     const selectEl = useRef<HTMLSelectElement>(null)
     const [optionsArray, setOptionsArray] = useState<Array<number>>([])
@@ -28,7 +34,6 @@ export default function NumberDropDown (props:
         }
 
         if ( select && !select.options[0] ) {
-            console.log(select.options)
             let forOptionsArray = [];
             for (let ii = ASSIGNED_VALUE_STEP; ii <= maxOption; ii += ASSIGNED_VALUE_STEP) {
                 forOptionsArray.push(ii);
@@ -41,7 +46,7 @@ export default function NumberDropDown (props:
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setValue(parseInt(event.target.value))
-        //need to change in the redux store
+        editAssigned(props.orgId, props.for, parseInt(event.target.value))
     }
 
     return (
