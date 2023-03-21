@@ -7,7 +7,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import {CssBaseline} from "@mui/material";
 import theme from './styles/theme';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Failed to find the root element');
+const root = ReactDOM.createRoot(rootElement);
 root.render(
     <ThemeProvider theme={theme}>
       <React.StrictMode>
