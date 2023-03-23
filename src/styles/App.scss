@@ -33,7 +33,7 @@ $breakpoint-small-screen: 1024px;
 
 .App {
   text-align: center;
-  padding: $large-spacing;
+  padding: $middle-spacing $large-spacing $large-spacing $large-spacing;
 }
 
 .App-logo {

@@ -3,8 +3,8 @@ import {Box, Button} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import OrganizationCard from "../OrganizationCard";
-import OrganizationChangeModal from "../OrganizationChangeModal";
+import OrganizationCard from "../../components/OrganizationCard";
+import OrganizationChangeModal from "../../components/OrganizationChangeModal";
 import * as CONSTANTS from "../../constants/constants";
 import * as TEXTS from "../../constants/texts";
 
@@ -12,7 +12,7 @@ import {useAppSelector, useAppDispatch} from "../../store/hooks";
 import {selectOrganizations, addOrganization, removeOrganization} from "../../store/slice";
 import type {Organization} from "../../store/slice";
 
-export default function OrganizationsPage() {
+export default function HomePage() {
     const organizations = useAppSelector(selectOrganizations);
     const dispatch = useAppDispatch();
 
@@ -47,12 +47,10 @@ export default function OrganizationsPage() {
     }
 
     return (
-        <Box className="App">
-            <header className="App-header">
-                <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                    {TEXTS.HEADER_TEXT}
-                </Typography>
-            </header>
+        <Box className="App" sx={{ backgroundColor: 'white.main'}}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center', color: 'black.main' }}>
+                {TEXTS.HEADER_TEXT}
+            </Typography>
 
             <section className="Organizations-cards">
                 <Box sx={{alignItems: { xs: 'center', md: 'unset'}}} className="Controls__row">

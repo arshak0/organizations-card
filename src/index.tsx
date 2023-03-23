@@ -5,18 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material/styles';
 import {CssBaseline} from "@mui/material";
-import theme from './styles/theme';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
+
 root.render(
-    <ThemeProvider theme={theme}>
-      <React.StrictMode>
-          <CssBaseline />
-          <App />
-      </React.StrictMode>
-    </ThemeProvider>
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
